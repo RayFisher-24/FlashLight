@@ -34,23 +34,24 @@ public class MainActivity extends AppCompatActivity {
                } else {
                    binding.button.setText(R.string.turn_on);
                    binding.powerImage.setImageResource(R.drawable.on);
+                   changeLightState(false);
                }
             }
         });
     }
 
     private void changeLightState(boolean b) {
-       /* if(Build.VERSION>SDK_INT>=Build.VERSION_CODES.M){
-            if SDK version less than 21
-        }*/
-        CameraManager cameraManager=(CameraManager) getSystemService(CAMERA_SERVICE);
-        String camID=null;
-        try {
-            camID=cameraManager.getCameraIdList()[0];
-            cameraManager.setTorchMode(camID,b);
-        } catch (CameraAccessException e) {
-            e.printStackTrace();
-        }
+       if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M) {
+
+           CameraManager cameraManager = (CameraManager) getSystemService(CAMERA_SERVICE);
+           String camID = null;
+           try {
+               camID = cameraManager.getCameraIdList()[0];
+               cameraManager.setTorchMode(camID, b);
+           } catch (CameraAccessException e) {
+               e.printStackTrace();
+           }
+       }
     }
 
     @Override
